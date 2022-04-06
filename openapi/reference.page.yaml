@@ -1,8 +1,30 @@
 type: reference-docs
 definitionId: petstore
+
+
 settings:
   generateCodeSamples:
     languages:
       - lang: curl
       - lang: JavaScript
       - lang: Node.js
+
+
+# type: reference-docs
+# versions:
+#   - definitionId: acme
+#     id: acme
+#     title: acme
+#     isDefault: false
+#   - definitionId: petstore
+#     id: petstore
+#     title: petstore
+#     isDefault: true
+
+# settings:
+#   # jsonSampleExpandLevel: 'all'
+#   generateCodeSamples:
+#      languages:
+#        - lang: curl
+#        - lang: JavaScript
+#        - lang: Node.js

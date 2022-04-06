@@ -1,0 +1,10 @@
+type: reference-docs
+definitionId: consumer-GetProposal
+
+
+settings:
+  generateCodeSamples:
+    languages:
+      - lang: curl
+      - lang: JavaScript
+      - lang: Node.js

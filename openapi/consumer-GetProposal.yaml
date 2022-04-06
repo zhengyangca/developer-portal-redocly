@@ -1,0 +1,127 @@
+openapi: 3.0.1
+info:
+  title: Get Proposal Data
+  version: 1.0.0
+  description: >-
+  
+    # Overview
+  
+    The Get Proposal Data API will give as a response all the fields required for proposal submission for a product. The API also makes all the information  available which would be required to paint the UI. Example: type of field, list of values, mandatory and visibility conditions and other validations. Fields can be added dynamically on the UI using this API.
+  
+  x-logo:
+    url: "https://1silverbullet.tech/assets/images/Logo.svg"
+    backgroundColor: "#FFFFFF"
+    altText: "1SB Logo"
+servers:
+   - url: 'https://demo.proposal.api.1silverbullet.tech/insurance'
+tags:
+  - name: API Authentication
+    description: Quotation API is authenticated using Basic Auth. Basic auth requires the following
+      - [Your API_Key]
+      - [Your API_Secret]
+  - name: Download Postman API Collection 
+    description: Copy below URL and import it in Postman Collection.
+      - TODO add the collection URL 
+    
+paths:
+  /{productGroupId}/proposal:
+    get:
+      security:
+        - basicAuth: []
+      summary: "API to get Proposal submission API data"
+      parameters:
+        - in: path
+          name: productGroupId
+          schema:
+            type: string
+          required: true
+          description: "Id of the Group which the product belog to"
+        - in: query
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: "Id of the Product given by the Manufacturer"
+        - in: query
+          name: manufacturerId
+          schema:
+            type: string
+          required: true
+          description: "Id of the Manufacturer"
+
+      responses:
+        200:
+          description: Get Proposal API response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProposalResponse'
+      x-consumer-request-api: all
+      x-consumer-request-api-auth:
+        type: basic Authorization
+        httpMethod: POST
+        requestParameters:
+          integration.request.header.custom_h1: method.request.header.h1
+        responses:
+          200:
+            statusCode: "200"
+          404:
+            statusCode: "404"
+            description: "Not Found"
+          default:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.test-method-response-header: '''static value'''
+            responseTemplates:
+              application/json: json 400 response template
+              application/xml: xml 400 response template
+      x-codegen-request-body-name: RequestBodyModel     
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas: 
+    ProposalResponse:
+      type: object
+      properties:
+        reqId:
+          description: "Request Id for the get proposal request assigned by 1SB"
+          type: string
+        errors:
+          description: "This array contains error messages in case of an error"
+          type: array
+          items:
+            type: object
+        data:
+          description: "Section to carry responses"
+          type: object
+          properties:
+            manufacturerId:
+              description: "This will help to identify the insurance company to which the product belongs."
+              type: string
+              example: "ICICI"
+            productId:
+              description: "The product for which the below information has been provided."
+              type: string
+              example: "My Term Product"
+            productGroupId:
+              description: "The product group (term, savings, ULIPS etc) is identified through this field."
+              example: "LifeTerm"
+              type: string
+            fieldGroups:
+              description: "This section will carry multiple sub field groups and fields. Each field will carry attributes which give additional information. example: name, description, type, pattern, order, visibility, validation, mandatory, etc"
+              type: object
+    Error:
+      type: object
+x-consumer-request-api:
+  all:
+    validateRequestBody: true
+    validateRequestParameters: true
+  params-only:
+    validateRequestBody: false
+    validateRequestParameters: true
+x-consumer-request-api-: params-only
+
+security:
+  - basicAuth: []  # <-- use the same name her
