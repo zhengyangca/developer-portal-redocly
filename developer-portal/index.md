@@ -1,5 +1,5 @@
 ---
-title: Training program
+# title: Training program
 ---
 
 # Training program
