@@ -1,16 +1,16 @@
 meta:
-  title: Redocly Training
-  description: The best API documentation generator ever.
+  title: 1SB Developer Portal
+  description: 1SB Developer Portal
   siteUrl: https://developer-portal-starter.redoc.ly
-  keywords: redocly developer portal, api portal starter, api reference docs
+  keywords: redocly developer portal, api portal starter, api reference docs , 1sb developer portal
   lang: en-US
 linkChecker:
   severity: warning
   options:
     CheckExternal: false
 logo:
-  image: ./images/logo.png
-  altText: Redocly Training
+  image: ./images/1sb_white.png
+  altText: 1Silverbullet
 toc:
   enable: true
 oasDefinitions:
@@ -28,12 +28,12 @@ stylesheets:
 #  - ./static/intercom.js
 nav:
 
-  - label: Training exercises
-    page: developer-portal/index.md
+  # - label: Training exercises
+  #   page: developer-portal/index.md
 
-  - label: External docs
-    icon: ./images/redocly-icon-white.png
-    href: https://redoc.ly/docs/developer-portal/introduction/
+  # - label: External docs
+  #   icon: ./images/redocly-icon-white.png
+  #   href: https://redoc.ly/docs/developer-portal/introduction/
 
   - search: true
 
