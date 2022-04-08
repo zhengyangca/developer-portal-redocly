@@ -1,5 +1,5 @@
 training:
-  # - page: developer-portal/index.md
+  - page: developer-portal/index.md
   # - group: Training exercises
   #   expanded: true
   #   pages:
