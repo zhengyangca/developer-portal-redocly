@@ -1,5 +1,5 @@
 training:
-  - page: developer-portal/index.md
+  # - page: developer-portal/index.md
   # - group: Training exercises
   #   expanded: true
   #   pages:
@@ -46,7 +46,10 @@ training:
     expanded: true
     pages:
       - page: openapi/consumer.page.yaml/*
-
+  - group: Consumer Get Quotation
+    expanded: true
+    pages:
+      - page: openapi/quotation.page.yaml/*
   # - group: Admin
   #   expanded: true
   #   pages:
