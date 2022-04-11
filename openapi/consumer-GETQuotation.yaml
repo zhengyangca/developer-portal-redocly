@@ -23,6 +23,8 @@ tags:
 paths:
   "/lifeTerm/quotation/":
     post:
+      security:
+        - basicAuth: []
       summary: Quote Request
       requestBody:
         description: Consumer Request
@@ -236,6 +238,10 @@ paths:
             request.AddParameter("application/json", "{\"typeOfQuote\":\"Single Quote\",\"quoteCategory\":\"Sum Assured\",\"alternateFreqRequired\":\"Yes\",\"outOfBoundConfig\":\"Yes\",\"additionalSetup\":{\"currency\":\"AUD\",\"userCountry\":\"AF\",\"userRegion\":\"string\",\"userLanguage\":\"string\",\"userIP\":\"string\",\"userAgent\":\"string\",\"userGeoLocation\":\"string\"},\"distributor\":{\"distributorID\":\"D001\",\"agentId\":7055555077,\"salesChannel\":\"Online\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"personalInformation\":{\"individualDetails\":[{\"memberType\":\"Life Assured\",\"memberSequenceNumber\":1,\"title\":\"Mr\",\"firstName\":\"Jane\",\"middleName\":\"S\",\"lastName\":\"Doe\",\"gender\":\"Male\",\"dateOfBirth\":\"1996-08-13\",\"age\":25,\"maritalStatus\":\"Married\",\"qualification\":\"Post Graduate\",\"occupation\":\"Salaried\",\"annualIncome\":\"2000000\",\"email\":\"abcxyz@gmail.com\",\"mobileNumber\":\"9898989898\",\"tobacco\":\"No\",\"relationWithFirstLifeAssured\":\"Spouse\",\"zipCode\":400002,\"state\":\"ANDAMAN AND NICOBAR\",\"city\":\"Mumbai\",\"quoteAmount\":\"10000000\",\"riderDetails\":[{\"riderCode\":\"23\",\"riderTerm\":20,\"riderPremiumPayingTerm\":20,\"riderSA\":\"1000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}],\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"product\":{\"productType\":\"LifeTerm\",\"insuranceAndProducts\":[{\"insuranceCompanyCode\":\"EFGLife\",\"productCode\":[\"string\"]}],\"policyTerm\":20,\"policyTermUnit\":\"Years\",\"premiumPaymentOption\":\"2\",\"premiumPaymentTerm\":20,\"premiumPaymentFrequency\":\"M\",\"planOption\":{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"coverOption\":{\"OptionSelected\":\"string\",\"SAChangePercent\":0,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"DBPoption\":{\"OptionSelected\":\"string\",\"lumpsumPayoutPercent\":\"60\",\"lumpsumAmount\":\"6000000\",\"incomeAmount\":\"4000000\",\"incomeFrequency\":\"Y\",\"incomeTerm\":10,\"incomeTermUnit\":\"Years\",\"incomeIncreasingPercent\":5,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOnSection\":{\"returnOfPremium\":{\"returnOfPremiumPercentage\":100,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOns\":[{\"OptionSelected\":\"string\",\"addOnSumAssured\":\"5000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"riderInformation\":{\"riderDetails\":[{\"riderCode\":\"22\",\"riderTerm\":10,\"riderPremiumPayingTerm\":10,\"riderSA\":\"1500000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"newOptions\":{\"newOptionName\":\"string\",\"optionValues\":[{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"other\":{\"keyFeatureDocLanguage\":\"English\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   schemas:
     ConsumerRequest:
       required:
@@ -2342,3 +2348,5 @@ x-consumer-request-api:
     validateRequestBody: false
     validateRequestParameters: true
 x-consumer-request-api-: params-only
+security:
+  - basicAuth: []  # <-- use the same name her
