@@ -38,15 +38,23 @@ training:
   #       page: developer-portal/mdx.mdx
   #     - label: Creating React components
   #       page: developer-portal/custom-component.mdx
-  - group: Platform-Admin-Service reference
+  - group: Submit Proposal
     expanded: true
     pages:
       - page: openapi/reference.page.yaml/*
   - group: Consumer GET Proposal
-    expanded: true
+    expanded: false
     pages:
       - page: openapi/consumer.page.yaml/*
-
+  - group: Get Requirement API 
+    expanded: false
+    pages:
+      - page: openapi/get.page.yaml/*
+  - group: Get Proposal API
+    expanded: false
+    pages:
+      - page: openapi/getpro.page.yaml/*
+  
   # - group: Admin
   #   expanded: true
   #   pages:
