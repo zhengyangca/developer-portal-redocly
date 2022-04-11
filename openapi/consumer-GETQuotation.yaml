@@ -8,7 +8,7 @@ info:
     The 1Silverbullet Insurance quotation API will enable the consumers to connect with multiple manufacturers (insurance companies) for generation of quotes for Life Term products. The API has the flexibility to provide quotes for multiple products with one request from the consumer. The quotation response also provides other value added information like product features and insurance company's marketing messages, which can help consumers to enrich their user experience.
 
 servers:
-   - url: 'https://demo.insurance.api.1silverbullet.tech'
+   - url: 'https://demo.insurance.api.1silverbullet.tech/insurance'
 tags:
   - name: API Authentication
     description: Quotation API is authenticated using Basic Auth. Basic auth requires the following
@@ -21,7 +21,7 @@ tags:
   
 
 paths:
-  "/lifeTerm/quotation/":
+  "/lifeTerm/quote/":
     post:
       security:
         - basicAuth: []
@@ -993,9 +993,10 @@ components:
               maxLength: 20
               example: "2"
               enum:
-                - 1
-                - 2
-                - 3
+               enum:
+                - "1"
+                - "2"
+                - "3"
             premiumPaymentTerm:
               description:
                 Premium paying term is the total period (number of years
