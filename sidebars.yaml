@@ -41,7 +41,7 @@ training:
   - group: Submit Proposal
     expanded: true
     pages:
-      - page: openapi/reference.page.yaml/*
+      - page: openapi/submitproposal.page.yaml/*
   - group: Consumer GET Proposal
     expanded: false
     pages:
