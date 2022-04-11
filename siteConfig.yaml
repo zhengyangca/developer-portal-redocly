@@ -14,9 +14,9 @@ logo:
 toc:
   enable: true
 oasDefinitions:
-  petstore: ./openapi/platformAdminService.json
+  submitproposal: ./openapi/submitproposal.yaml
   consumer-GetProposal: ./openapi/consumer-GetProposal.yaml
-  admin: ./openapi/consumer-GETQuotation.yaml
+  quotation: ./openapi/consumer-GETQuotation.yaml
   # add links to definitions in our API registry by using a fully qualified URL.
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
