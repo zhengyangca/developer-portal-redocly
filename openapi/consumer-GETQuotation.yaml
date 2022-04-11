@@ -1,0 +1,2344 @@
+openapi: 3.0.1
+info:
+  title: Consumer Quote Request API
+  version: 1.0.0
+  description: |2-
+
+    # Overview
+    The 1Silverbullet Insurance quotation API will enable the consumers to connect with multiple manufacturers (insurance companies) for generation of quotes for Life Term products. The API has the flexibility to provide quotes for multiple products with one request from the consumer. The quotation response also provides other value added information like product features and insurance company's marketing messages, which can help consumers to enrich their user experience.
+
+servers:
+   - url: 'https://demo.insurance.api.1silverbullet.tech'
+tags:
+  - name: API Authentication
+    description: Quotation API is authenticated using Basic Auth. Basic auth requires the following
+      - [Your API_Key]
+      - [Your API_Secret]
+  - name: Download Postman API Collection 
+    description: Copy below URL and import it in Postman Collection.
+      - https://www.getpostman.com/collections/fc3b7a0a4cf5f2630067
+
+  
+
+paths:
+  "/lifeTerm/quotation/":
+    post:
+      summary: Quote Request
+      requestBody:
+        description: Consumer Request
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConsumerRequest"
+        required: true
+      responses:
+        "200":
+          description: Consumer Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ConsumerResponse"
+      x-consumer-request-api: all
+      x-consumer-request-api-auth:
+        type: basic Authorization
+        httpMethod: POST
+        requestParameters:
+          integration.request.header.custom_h1: method.request.header.h1
+        responses:
+          "404":
+            statusCode: "404"
+            description: Not Found
+          2\d{2}:
+            statusCode: "200"
+          default:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.test-method-response-header: "'static value'"
+            responseTemplates:
+              application/json: json 400 response template
+              application/xml: xml 400 response template
+      x-codegen-request-body-name: RequestBodyModel
+      x-codeSamples:
+        - lang: Node
+          source: |
+            const request = require('request');
+
+            const options = {
+              method: 'POST',
+              url: 'http://undefinedundefined/lifeTerm/quotation/',
+              headers: {'content-type': 'application/json'},
+              body: {
+                typeOfQuote: 'Single Quote',
+                quoteCategory: 'Sum Assured',
+                alternateFreqRequired: 'Yes',
+                outOfBoundConfig: 'Yes',
+                additionalSetup: {
+                  currency: 'AUD',
+                  userCountry: 'AF',
+                  userRegion: 'string',
+                  userLanguage: 'string',
+                  userIP: 'string',
+                  userAgent: 'string',
+                  userGeoLocation: 'string'
+                },
+                distributor: {
+                  distributorID: 'D001',
+                  agentId: 7055555077,
+                  salesChannel: 'Online',
+                  varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                },
+                personalInformation: {
+                  individualDetails: [
+                    {
+                      memberType: 'Life Assured',
+                      memberSequenceNumber: 1,
+                      title: 'Mr',
+                      firstName: 'Jane',
+                      middleName: 'S',
+                      lastName: 'Doe',
+                      gender: 'Male',
+                      dateOfBirth: '1996-08-13',
+                      age: 25,
+                      maritalStatus: 'Married',
+                      qualification: 'Post Graduate',
+                      occupation: 'Salaried',
+                      annualIncome: '2000000',
+                      email: 'abcxyz@gmail.com',
+                      mobileNumber: '9898989898',
+                      tobacco: 'No',
+                      relationWithFirstLifeAssured: 'Spouse',
+                      zipCode: 400002,
+                      state: 'ANDAMAN AND NICOBAR',
+                      city: 'Mumbai',
+                      quoteAmount: '10000000',
+                      riderDetails: [
+                        {
+                          riderCode: '23',
+                          riderTerm: 20,
+                          riderPremiumPayingTerm: 20,
+                          riderSA: '1000000',
+                          varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                        }
+                      ],
+                      varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                    }
+                  ]
+                },
+                product: {
+                  productType: 'LifeTerm',
+                  insuranceAndProducts: [{insuranceCompanyCode: 'EFGLife', productCode: ['string']}],
+                  policyTerm: 20,
+                  policyTermUnit: 'Years',
+                  premiumPaymentOption: '2',
+                  premiumPaymentTerm: 20,
+                  premiumPaymentFrequency: 'M',
+                  planOption: {
+                    OptionSelected: 'string',
+                    varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                  },
+                  coverOption: {
+                    OptionSelected: 'string',
+                    SAChangePercent: 0,
+                    varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                  },
+                  DBPoption: {
+                    OptionSelected: 'string',
+                    lumpsumPayoutPercent: '60',
+                    lumpsumAmount: '6000000',
+                    incomeAmount: '4000000',
+                    incomeFrequency: 'Y',
+                    incomeTerm: 10,
+                    incomeTermUnit: 'Years',
+                    incomeIncreasingPercent: 5,
+                    varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                  },
+                  AddOnSection: {
+                    returnOfPremium: {
+                      returnOfPremiumPercentage: 100,
+                      varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                    },
+                    AddOns: [
+                      {
+                        OptionSelected: 'string',
+                        addOnSumAssured: '5000000',
+                        varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                      }
+                    ]
+                  },
+                  riderInformation: {
+                    riderDetails: [
+                      {
+                        riderCode: '22',
+                        riderTerm: 10,
+                        riderPremiumPayingTerm: 10,
+                        riderSA: '1500000',
+                        varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                      }
+                    ]
+                  },
+                  newOptions: {
+                    newOptionName: 'string',
+                    optionValues: [
+                      {
+                        OptionSelected: 'string',
+                        varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                      }
+                    ]
+                  },
+                  varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                },
+                other: {
+                  keyFeatureDocLanguage: 'English',
+                  varFields: [{fieldName: 'string', fieldValue: 'string'}]
+                }
+              },
+              json: true
+            };
+
+            request(options, function (error, response, body) {
+              if (error) throw new Error(error);
+
+              console.log(body);
+            });
+        - lang: Curl
+          source: |-
+            curl --request POST \
+              --url http://undefinedundefined/lifeTerm/quotation/ \
+              --header 'content-type: application/json' \
+              --data '{"typeOfQuote":"Single Quote","quoteCategory":"Sum Assured","alternateFreqRequired":"Yes","outOfBoundConfig":"Yes","additionalSetup":{"currency":"AUD","userCountry":"AF","userRegion":"string","userLanguage":"string","userIP":"string","userAgent":"string","userGeoLocation":"string"},"distributor":{"distributorID":"D001","agentId":7055555077,"salesChannel":"Online","varFields":[{"fieldName":"string","fieldValue":"string"}]},"personalInformation":{"individualDetails":[{"memberType":"Life Assured","memberSequenceNumber":1,"title":"Mr","firstName":"Jane","middleName":"S","lastName":"Doe","gender":"Male","dateOfBirth":"1996-08-13","age":25,"maritalStatus":"Married","qualification":"Post Graduate","occupation":"Salaried","annualIncome":"2000000","email":"abcxyz@gmail.com","mobileNumber":"9898989898","tobacco":"No","relationWithFirstLifeAssured":"Spouse","zipCode":400002,"state":"ANDAMAN AND NICOBAR","city":"Mumbai","quoteAmount":"10000000","riderDetails":[{"riderCode":"23","riderTerm":20,"riderPremiumPayingTerm":20,"riderSA":"1000000","varFields":[{"fieldName":"string","fieldValue":"string"}]}],"varFields":[{"fieldName":"string","fieldValue":"string"}]}]},"product":{"productType":"LifeTerm","insuranceAndProducts":[{"insuranceCompanyCode":"EFGLife","productCode":["string"]}],"policyTerm":20,"policyTermUnit":"Years","premiumPaymentOption":"2","premiumPaymentTerm":20,"premiumPaymentFrequency":"M","planOption":{"OptionSelected":"string","varFields":[{"fieldName":"string","fieldValue":"string"}]},"coverOption":{"OptionSelected":"string","SAChangePercent":0,"varFields":[{"fieldName":"string","fieldValue":"string"}]},"DBPoption":{"OptionSelected":"string","lumpsumPayoutPercent":"60","lumpsumAmount":"6000000","incomeAmount":"4000000","incomeFrequency":"Y","incomeTerm":10,"incomeTermUnit":"Years","incomeIncreasingPercent":5,"varFields":[{"fieldName":"string","fieldValue":"string"}]},"AddOnSection":{"returnOfPremium":{"returnOfPremiumPercentage":100,"varFields":[{"fieldName":"string","fieldValue":"string"}]},"AddOns":[{"OptionSelected":"string","addOnSumAssured":"5000000","varFields":[{"fieldName":"string","fieldValue":"string"}]}]},"riderInformation":{"riderDetails":[{"riderCode":"22","riderTerm":10,"riderPremiumPayingTerm":10,"riderSA":"1500000","varFields":[{"fieldName":"string","fieldValue":"string"}]}]},"newOptions":{"newOptionName":"string","optionValues":[{"OptionSelected":"string","varFields":[{"fieldName":"string","fieldValue":"string"}]}]},"varFields":[{"fieldName":"string","fieldValue":"string"}]},"other":{"keyFeatureDocLanguage":"English","varFields":[{"fieldName":"string","fieldValue":"string"}]}}'
+        - lang: Java
+          source: |-
+            HttpResponse<String> response = Unirest.post("http://undefinedundefined/lifeTerm/quotation/")
+              .header("content-type", "application/json")
+              .body("{\"typeOfQuote\":\"Single Quote\",\"quoteCategory\":\"Sum Assured\",\"alternateFreqRequired\":\"Yes\",\"outOfBoundConfig\":\"Yes\",\"additionalSetup\":{\"currency\":\"AUD\",\"userCountry\":\"AF\",\"userRegion\":\"string\",\"userLanguage\":\"string\",\"userIP\":\"string\",\"userAgent\":\"string\",\"userGeoLocation\":\"string\"},\"distributor\":{\"distributorID\":\"D001\",\"agentId\":7055555077,\"salesChannel\":\"Online\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"personalInformation\":{\"individualDetails\":[{\"memberType\":\"Life Assured\",\"memberSequenceNumber\":1,\"title\":\"Mr\",\"firstName\":\"Jane\",\"middleName\":\"S\",\"lastName\":\"Doe\",\"gender\":\"Male\",\"dateOfBirth\":\"1996-08-13\",\"age\":25,\"maritalStatus\":\"Married\",\"qualification\":\"Post Graduate\",\"occupation\":\"Salaried\",\"annualIncome\":\"2000000\",\"email\":\"abcxyz@gmail.com\",\"mobileNumber\":\"9898989898\",\"tobacco\":\"No\",\"relationWithFirstLifeAssured\":\"Spouse\",\"zipCode\":400002,\"state\":\"ANDAMAN AND NICOBAR\",\"city\":\"Mumbai\",\"quoteAmount\":\"10000000\",\"riderDetails\":[{\"riderCode\":\"23\",\"riderTerm\":20,\"riderPremiumPayingTerm\":20,\"riderSA\":\"1000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}],\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"product\":{\"productType\":\"LifeTerm\",\"insuranceAndProducts\":[{\"insuranceCompanyCode\":\"EFGLife\",\"productCode\":[\"string\"]}],\"policyTerm\":20,\"policyTermUnit\":\"Years\",\"premiumPaymentOption\":\"2\",\"premiumPaymentTerm\":20,\"premiumPaymentFrequency\":\"M\",\"planOption\":{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"coverOption\":{\"OptionSelected\":\"string\",\"SAChangePercent\":0,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"DBPoption\":{\"OptionSelected\":\"string\",\"lumpsumPayoutPercent\":\"60\",\"lumpsumAmount\":\"6000000\",\"incomeAmount\":\"4000000\",\"incomeFrequency\":\"Y\",\"incomeTerm\":10,\"incomeTermUnit\":\"Years\",\"incomeIncreasingPercent\":5,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOnSection\":{\"returnOfPremium\":{\"returnOfPremiumPercentage\":100,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOns\":[{\"OptionSelected\":\"string\",\"addOnSumAssured\":\"5000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"riderInformation\":{\"riderDetails\":[{\"riderCode\":\"22\",\"riderTerm\":10,\"riderPremiumPayingTerm\":10,\"riderSA\":\"1500000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"newOptions\":{\"newOptionName\":\"string\",\"optionValues\":[{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"other\":{\"keyFeatureDocLanguage\":\"English\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}}")
+              .asString();
+        - lang: Python
+          source: |-
+            import http.client
+
+            conn = http.client.HTTPConnection("undefinedundefined")
+
+            payload = "{\"typeOfQuote\":\"Single Quote\",\"quoteCategory\":\"Sum Assured\",\"alternateFreqRequired\":\"Yes\",\"outOfBoundConfig\":\"Yes\",\"additionalSetup\":{\"currency\":\"AUD\",\"userCountry\":\"AF\",\"userRegion\":\"string\",\"userLanguage\":\"string\",\"userIP\":\"string\",\"userAgent\":\"string\",\"userGeoLocation\":\"string\"},\"distributor\":{\"distributorID\":\"D001\",\"agentId\":7055555077,\"salesChannel\":\"Online\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"personalInformation\":{\"individualDetails\":[{\"memberType\":\"Life Assured\",\"memberSequenceNumber\":1,\"title\":\"Mr\",\"firstName\":\"Jane\",\"middleName\":\"S\",\"lastName\":\"Doe\",\"gender\":\"Male\",\"dateOfBirth\":\"1996-08-13\",\"age\":25,\"maritalStatus\":\"Married\",\"qualification\":\"Post Graduate\",\"occupation\":\"Salaried\",\"annualIncome\":\"2000000\",\"email\":\"abcxyz@gmail.com\",\"mobileNumber\":\"9898989898\",\"tobacco\":\"No\",\"relationWithFirstLifeAssured\":\"Spouse\",\"zipCode\":400002,\"state\":\"ANDAMAN AND NICOBAR\",\"city\":\"Mumbai\",\"quoteAmount\":\"10000000\",\"riderDetails\":[{\"riderCode\":\"23\",\"riderTerm\":20,\"riderPremiumPayingTerm\":20,\"riderSA\":\"1000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}],\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"product\":{\"productType\":\"LifeTerm\",\"insuranceAndProducts\":[{\"insuranceCompanyCode\":\"EFGLife\",\"productCode\":[\"string\"]}],\"policyTerm\":20,\"policyTermUnit\":\"Years\",\"premiumPaymentOption\":\"2\",\"premiumPaymentTerm\":20,\"premiumPaymentFrequency\":\"M\",\"planOption\":{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"coverOption\":{\"OptionSelected\":\"string\",\"SAChangePercent\":0,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"DBPoption\":{\"OptionSelected\":\"string\",\"lumpsumPayoutPercent\":\"60\",\"lumpsumAmount\":\"6000000\",\"incomeAmount\":\"4000000\",\"incomeFrequency\":\"Y\",\"incomeTerm\":10,\"incomeTermUnit\":\"Years\",\"incomeIncreasingPercent\":5,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOnSection\":{\"returnOfPremium\":{\"returnOfPremiumPercentage\":100,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOns\":[{\"OptionSelected\":\"string\",\"addOnSumAssured\":\"5000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"riderInformation\":{\"riderDetails\":[{\"riderCode\":\"22\",\"riderTerm\":10,\"riderPremiumPayingTerm\":10,\"riderSA\":\"1500000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"newOptions\":{\"newOptionName\":\"string\",\"optionValues\":[{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"other\":{\"keyFeatureDocLanguage\":\"English\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}}"
+
+            headers = { 'content-type': "application/json" }
+
+            conn.request("POST", "/lifeTerm/quotation/", payload, headers)
+
+            res = conn.getresponse()
+            data = res.read()
+
+            print(data.decode("utf-8"))
+        - lang: C#
+          source: |-
+            var client = new RestClient("http://undefinedundefined/lifeTerm/quotation/");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("content-type", "application/json");
+            request.AddParameter("application/json", "{\"typeOfQuote\":\"Single Quote\",\"quoteCategory\":\"Sum Assured\",\"alternateFreqRequired\":\"Yes\",\"outOfBoundConfig\":\"Yes\",\"additionalSetup\":{\"currency\":\"AUD\",\"userCountry\":\"AF\",\"userRegion\":\"string\",\"userLanguage\":\"string\",\"userIP\":\"string\",\"userAgent\":\"string\",\"userGeoLocation\":\"string\"},\"distributor\":{\"distributorID\":\"D001\",\"agentId\":7055555077,\"salesChannel\":\"Online\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"personalInformation\":{\"individualDetails\":[{\"memberType\":\"Life Assured\",\"memberSequenceNumber\":1,\"title\":\"Mr\",\"firstName\":\"Jane\",\"middleName\":\"S\",\"lastName\":\"Doe\",\"gender\":\"Male\",\"dateOfBirth\":\"1996-08-13\",\"age\":25,\"maritalStatus\":\"Married\",\"qualification\":\"Post Graduate\",\"occupation\":\"Salaried\",\"annualIncome\":\"2000000\",\"email\":\"abcxyz@gmail.com\",\"mobileNumber\":\"9898989898\",\"tobacco\":\"No\",\"relationWithFirstLifeAssured\":\"Spouse\",\"zipCode\":400002,\"state\":\"ANDAMAN AND NICOBAR\",\"city\":\"Mumbai\",\"quoteAmount\":\"10000000\",\"riderDetails\":[{\"riderCode\":\"23\",\"riderTerm\":20,\"riderPremiumPayingTerm\":20,\"riderSA\":\"1000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}],\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"product\":{\"productType\":\"LifeTerm\",\"insuranceAndProducts\":[{\"insuranceCompanyCode\":\"EFGLife\",\"productCode\":[\"string\"]}],\"policyTerm\":20,\"policyTermUnit\":\"Years\",\"premiumPaymentOption\":\"2\",\"premiumPaymentTerm\":20,\"premiumPaymentFrequency\":\"M\",\"planOption\":{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"coverOption\":{\"OptionSelected\":\"string\",\"SAChangePercent\":0,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"DBPoption\":{\"OptionSelected\":\"string\",\"lumpsumPayoutPercent\":\"60\",\"lumpsumAmount\":\"6000000\",\"incomeAmount\":\"4000000\",\"incomeFrequency\":\"Y\",\"incomeTerm\":10,\"incomeTermUnit\":\"Years\",\"incomeIncreasingPercent\":5,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOnSection\":{\"returnOfPremium\":{\"returnOfPremiumPercentage\":100,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOns\":[{\"OptionSelected\":\"string\",\"addOnSumAssured\":\"5000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"riderInformation\":{\"riderDetails\":[{\"riderCode\":\"22\",\"riderTerm\":10,\"riderPremiumPayingTerm\":10,\"riderSA\":\"1500000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"newOptions\":{\"newOptionName\":\"string\",\"optionValues\":[{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"other\":{\"keyFeatureDocLanguage\":\"English\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+components:
+  schemas:
+    ConsumerRequest:
+      required:
+        - typeOfQuote
+        - quoteCategory
+      type: object
+      properties:
+        typeOfQuote:
+          description:
+            This will take values as 'Single Quote' or 'Multi-quote' and
+            will help to identify the number of quote requests to be generated
+          type: string
+          maxLength: 20
+          enum:
+            - Single Quote
+            - Multi-Quote
+        quoteCategory:
+          description:
+            This field tells if the quoteAmount provided is a Sum Assured,
+            or a Premium, or an Income.
+          type: string
+          maxLength: 20
+          example: Sum Assured
+          enum:
+            - Premium
+            - Sum Assured
+            - Income
+        alternateFreqRequired:
+          description:
+            "If the consumer wants payment frequency related multi-quote,
+            this field should carry the values 'Yes' else 'No'. Example for frequency
+            related multi-quote : If customer inputs premiumPaymentFrequency as 'Monthly',
+            'Quarterly', or 'Half-Yearly', then 1SB will provide premium for given
+            as well as 'Yearly' frequency. If customer inputs premiumPaymentFrequency
+            as 'Yearly', 1SB will provide premium for 'Yearly' as well as 'Monthly'
+            frequency."
+          type: string
+          maxLength: 10
+          enum:
+            - "Yes"
+            - "No"
+        outOfBoundConfig:
+          description:
+            "If the distributor wants quotes for 'Out of Bound' cases,
+            this field should carry the values 'Yes' else 'No'. Example for 'Out
+            of Bound' case: If the customer inputs policyTerm as 40 but the product
+            only allows max policyTerm as 30, 1SB will default the policyTerm to 30
+            and generate a quote indicating that policyTerm parameter is out of bound.
+            Consumer App can showcase this quote to consumer to ensure that a particular
+            product is not eliminated from listing."
+          type: string
+          maxLength: 10
+          enum:
+            - "Yes"
+            - "No"
+        additionalSetup:
+          description:
+            This section will contain additional information regarding
+            user and policy
+          type: object
+          properties:
+            currency:
+              description: Currency in which policy will be purchased
+              type: string
+              maxLength: 5
+              enum:
+                - AUD
+                - NZD
+                - USD
+                - EUR
+                - GBP
+                - JPY
+                - ZAR
+                - CAD
+                - CNY
+                - ARS
+                - BSD
+                - BDT
+                - BGN
+                - BRL
+                - CLP
+                - KWD
+                - COP
+                - HRK
+                - CZK
+                - DKK
+                - EGP
+                - HKD
+                - HUF
+                - ISK
+                - INR
+                - IDR
+                - ILS
+                - KZT
+                - KRW
+                - CHF
+                - MYR
+                - MUR
+                - MXN
+                - NOK
+                - PHP
+                - PLN
+                - QAR
+                - RON
+                - RUB
+                - SAR
+                - RSD
+                - SGD
+                - SEK
+                - TWD
+                - THB
+                - TRY
+                - UAH
+                - VND
+                - AED
+                - MAD
+                - PEN
+                - UYU
+                - OMR
+                - BHD
+            userCountry:
+              description: Country of the user
+              type: string
+              maxLength: 5
+              enum:
+                - AF
+                - AX
+                - AL
+                - DZ
+                - AS
+                - AD
+                - AO
+                - AI
+                - AQ
+                - AG
+                - AR
+                - AM
+                - AW
+                - AU
+                - AT
+                - AZ
+                - BS
+                - BH
+                - BD
+                - BB
+                - BY
+                - BE
+                - BZ
+                - BJ
+                - BM
+                - BT
+                - BO
+                - BQ
+                - BA
+                - BW
+                - BV
+                - BR
+                - IO
+                - BN
+                - BG
+                - BF
+                - BI
+                - CV
+                - KH
+                - CM
+                - CA
+                - KY
+                - CF
+                - TD
+                - CL
+                - CN
+                - CX
+                - CC
+                - CO
+                - KM
+                - CG
+                - CD
+                - CK
+                - CR
+                - CI
+                - HR
+                - CU
+                - CW
+                - CY
+                - CZ
+                - DK
+                - DJ
+                - DM
+                - DO
+                - EC
+                - EG
+                - SV
+                - GQ
+                - ER
+                - EE
+                - SZ
+                - ET
+                - FK
+                - FO
+                - FJ
+                - FI
+                - FR
+                - GF
+                - PF
+                - TF
+                - GA
+                - GM
+                - GE
+                - DE
+                - GH
+                - GI
+                - GO
+                - GR
+                - GL
+                - GD
+                - GP
+                - GU
+                - GT
+                - GG
+                - GN
+                - GW
+                - GY
+                - HT
+                - HM
+                - VA
+                - HN
+                - HK
+                - HU
+                - IS
+                - IN
+                - ID
+                - IR
+                - IQ
+                - IE
+                - IM
+                - IL
+                - IT
+                - JM
+                - JP
+                - JE
+                - JO
+                - KZ
+                - KE
+                - KI
+                - XK
+                - KW
+                - KG
+                - LA
+                - LV
+                - LB
+                - LS
+                - LR
+                - LY
+                - LI
+                - LT
+                - LU
+                - MO
+                - MG
+                - MW
+                - MY
+                - MV
+                - ML
+                - MT
+                - MH
+                - MQ
+                - MR
+                - MU
+                - YT
+                - MX
+                - FM
+                - MD
+                - MC
+                - MN
+                - ME
+                - MS
+                - MA
+                - MZ
+                - MM
+                - NA
+                - NR
+                - NP
+                - NL
+                - NC
+                - NZ
+                - NI
+                - NE
+                - NG
+                - NU
+                - NF
+                - KP
+                - MK
+                - MP
+                - "NO"
+                - OM
+                - PK
+                - PW
+                - PS
+                - PA
+                - PG
+                - PY
+                - PE
+                - PH
+                - PN
+                - PL
+                - PT
+                - PR
+                - QA
+                - RE
+                - RO
+                - RU
+                - RW
+                - BL
+                - SH
+                - KN
+                - LC
+                - MF
+                - PM
+                - VC
+                - WS
+                - SM
+                - ST
+                - SA
+                - SN
+                - RS
+                - SC
+                - SL
+                - SG
+                - SX
+                - SK
+                - SI
+                - SB
+                - SO
+                - ZA
+                - GS
+                - KR
+                - SS
+                - ES
+                - LK
+                - SD
+                - SR
+                - SJ
+                - SE
+                - CH
+                - SY
+                - TW
+                - TJ
+                - TZ
+                - TH
+                - TL
+                - TG
+                - TK
+                - TO
+                - TT
+                - TN
+                - TR
+                - TM
+                - TC
+                - TV
+                - UG
+                - UA
+                - AE
+                - GB
+                - UM
+                - US
+                - UY
+                - UZ
+                - VU
+                - VE
+                - VN
+                - VG
+                - VI
+                - WF
+                - EH
+                - YE
+                - ZM
+                - ZW
+            userRegion:
+              description: Region (State or Province) of the user
+              type: string
+              maxLength: 30
+            userLanguage:
+              description: Language set by user on the consumer app
+              type: string
+              maxLength: 20
+            userIP:
+              description: User IP address
+              type: string
+              maxLength: 20
+            userAgent:
+              description: User's browser details
+              type: string
+              maxLength: 50
+            userGeoLocation:
+              description: Return a JSON object with latitude and longitude properties
+              type: string
+              maxLength: 100
+        distributor:
+          description:
+            This section will give details of intermediary (Broker, corporate
+            Agent or Bank acting as intermediary)
+          type: object
+          required:
+            - distributorID
+            - agentId
+          properties:
+            distributorID:
+              type: string
+              maxLength: 20
+              example: D001
+              description: Distributor ID assign to each consumer by 1SB
+            agentId:
+              type: string
+              description:
+                agent code. Eg. PoSP code or SP code provided by insurance
+                company.
+              maxLength: 30
+              example: 7055555077
+            salesChannel:
+              description:
+                "This is used by insurance companies to identify sales
+                channel. "
+              type: string
+              maxLength: 20
+              enum:
+                - Online
+                - Others
+            varFields:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldName:
+                    description: Additional fields for distributor section
+                    type: string
+                    maxLength: 50
+                  fieldValue:
+                    description: Value of additional fields
+                    type: string
+                    maxLength: 50
+        personalInformation:
+          type: object
+          description: Section to capture personal details of the life assured
+          properties:
+            individualDetails:
+              type: array
+              description:
+                This array will hold personal details of all life assured
+                and proposer
+              items:
+                type: object
+                required:
+                  - memberType
+                  - memberSequenceNumber
+                  - gender
+                  - dateOfBirth
+                  - annualIncome
+                  - tobacco
+                  - zipCode
+                properties:
+                  memberType:
+                    type: string
+                    description:
+                      Indicates if the information is being captured for
+                      life assured or proposer.
+                    maxLength: 30
+                    example: Life Assured
+                  memberSequenceNumber:
+                    description:
+                      Sequence number of members. This should be as unique
+                      for each member within each quote
+                    type: integer
+                    example: 1
+                  title:
+                    description: Title of Member.
+                    type: string
+                    maxLength: 30
+                    enum:
+                      - Mr
+                      - Mrs
+                      - Ms
+                  firstName:
+                    description: First Name of Member
+                    type: string
+                    maxLength: 50
+                    example: Jane
+                  middleName:
+                    description: Middle Name of Member
+                    type: string
+                    maxLength: 50
+                    example: S
+                  lastName:
+                    description: Last Name of Member
+                    type: string
+                    maxLength: 50
+                    example: Doe
+                  gender:
+                    description: Gender of Member.
+                    type: string
+                    maxLength: 15
+                    enum:
+                      - Male
+                      - Female
+                      - Transgender
+                      - Others
+                  dateOfBirth:
+                    description:
+                      Date of Birth of Member. Date is formatted string
+                      as per ISO 8601 standard. Format - YYYY-MM-DD
+                    type: string
+                    example: "1996-08-13"
+                  age:
+                    description: Age of Member
+                    type: integer
+                    maxLength: 150
+                    example: 25
+                  maritalStatus:
+                    description: Marital status of Member.
+                    type: string
+                    maxLength: 30
+                    enum:
+                      - Married
+                      - Single
+                  qualification:
+                    description: Education of Member.
+                    type: string
+                    maxLength: 50
+                    enum:
+                      - Post Graduate
+                      - Graduate
+                      - 12th
+                      - 10th
+                      - Diploma
+                      - Below 10th
+                  occupation:
+                    description: Occupation of Member.
+                    type: string
+                    maxLength: 50
+                    enum:
+                      - Salaried
+                      - Self-Employed
+                      - Non-working
+                  annualIncome:
+                    description: Annual Income of Member. Existing earnings per year.
+                    type: number
+                    maxLength: 15
+                    example: "2000000"
+                  email:
+                    description: Email ID of Member
+                    type: string
+                    maxLength: 100
+                    example: abcxyz@gmail.com
+                  mobileNumber:
+                    description: Mobile number of Member
+                    type: number
+                    maxLength: 10
+                    example: "9898989898"
+                  tobacco:
+                    description: Smoker/Non-Smoker status of Member
+                    type: string
+                    maxLength: 10
+                    enum:
+                      - "No"
+                      - "Yes"
+                  relationWithFirstLifeAssured:
+                    description:
+                      "Relationship of life assured with Proposer. example:
+                      Self, Spouse, mother, father etc. This field is mandatory for
+                      typeOfQuote= 'Single Quote'"
+                    type: string
+                    maxLength: 30
+                    example: Spouse
+                  zipCode:
+                    description: This is Pin code
+                    type: string
+                    maxLength: 10
+                    example: 400002
+                  state:
+                    description: State of Member
+                    type: string
+                    maxLength: 30
+                    enum:
+                      - ANDAMAN AND NICOBAR
+                      - ANDHRA PRADESH
+                      - ARUNACHAL PRADESH
+                      - ASSAM
+                      - BIHAR
+                      - CHANDIGARH
+                      - DADRA AND NAGAR
+                      - DAMAN AND DIU
+                      - DELHI
+                      - GOA
+                      - GUJARAT
+                      - HIMACHAL PRADESH
+                      - JAMMU AND KASHMIR
+                      - KERALA
+                      - LAKSHADWEEP
+                      - MAHARASHTRA
+                      - MANIPUR
+                      - MEGHALAYA
+                      - NAGALAND
+                      - ORISSA
+                      - PUNJAB
+                      - RAJASTHAN
+                      - SIKKIM
+                      - TRIPURA
+                      - UTTAR PRADESH
+                      - JHARKHAND
+                      - UTTARAKHAND
+                      - TELANGANA
+                      - NOST
+                      - HARAYANA
+                      - KARNATAKA
+                      - MADHYA PRADESH
+                      - MIZORAM
+                      - PONDICHERRY
+                      - TAMIL NADU
+                      - WEST BENGAL
+                      - CHHATTISGARH
+                  city:
+                    description: City of Member
+                    type: string
+                    maxLength: 50
+                    example: Mumbai
+                  quoteAmount:
+                    description:
+                      Amount based on Quote Category. Can be the amount
+                      corrsponding to Sum Assured and Premium for the person insured.
+                      In case quoteCategory is Income, then the amount should be captured
+                      under DBPOption incomeAmount. This field is mandatory for typeOfQuote
+                      = 'Single quote' and 'memberType = '1' (Life assured)
+                    type: number
+                    maxLength: 15
+                    example: "10000000"
+                  riderDetails:
+                    description:
+                      Rider array to capture details of multiple riders
+                      for each insured
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        riderCode:
+                          description: riderCode to identify the rider selected
+                          type: string
+                          maxLength: 20
+                          example: "23"
+                        riderTerm:
+                          description: Policy Term of the rider
+                          type: integer
+                          maxLength: 150
+                          example: 20
+                        riderPremiumPayingTerm:
+                          description: Premium Paying Term of the rider
+                          example: 20
+                          type: integer
+                          maxLength: 150
+                        riderSA:
+                          description: Sum Assured pertaining to the rider
+                          type: number
+                          maxLength: 20
+                          example: "1000000"
+                        varFields:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              fieldName:
+                                type: string
+                                description: Additional fields for rider array
+                                maxLength: 50
+                              fieldValue:
+                                type: string
+                                description: Value of additional fields
+                                maxLength: 50
+                  varFields:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fieldName:
+                          type: string
+                          description: Additional fields for individualDetails array
+                          maxLength: 50
+                        fieldValue:
+                          type: string
+                          description: Value of additional fields
+                          maxLength: 50
+        product:
+          type: object
+          required:
+            - productType
+          properties:
+            productType:
+              description:
+                This gives Line of Business or similar products put in
+                one group. Distributor can provide generic LOB and 1SB can pick in
+                relevant products while creating request for Manufacturer
+              type: string
+              maxLength: 30
+              example: LifeTerm
+            insuranceAndProducts:
+              description:
+                "Array to capture multiple insurance company codes and
+                their specific product codes. This also allows the consumer to ask
+                for quotes for a specific product of a specific company(s). "
+              type: array
+              items:
+                type: object
+                properties:
+                  insuranceCompanyCode:
+                    type: string
+                    description:
+                      This is to provide quotes from selected companies.
+                      This field is mandatory for typeOfQuote= 'Single Quote'
+                    maxLength: 15
+                    example: EFGLife
+                  productCode:
+                    type: array
+                    description:
+                      Option for distributor to ask for quotes for specific
+                      products only. This field is mandatory for typeOfQuote= 'Single
+                      Quote'
+                    items:
+                      type: string
+            policyTerm:
+              description:
+                Policy term is the period within which a policy remains
+                active and offers protection/benefits. This field is mandatory for
+                typeOfQuote= 'Single Quote'
+              type: integer
+              example: 20
+            policyTermUnit:
+              description:
+                This is a futuristic field to allow policy term to be in
+                days or months.
+              type: string
+              maxLength: 15
+              example: Years
+            premiumPaymentOption:
+              description:
+                "(Send 1 for Single pay, 2 for Regular pay, 3 for Limited
+                pay). This field is mandatory for typeOfQuote= 'Single Quote'. With
+                single Pay option, you have the option to pay the premium for the
+                entire policy term at once as a lump-sum amount. In Regular Pay option,
+                the premium paying term is the same as the Policy Term chosen. With
+                Limited Pay option, the premium is paid for a limited number of years
+                which is less than the policy term. "
+              type: string
+              maxLength: 20
+              example: "2"
+              enum:
+                - 1
+                - 2
+                - 3
+            premiumPaymentTerm:
+              description:
+                Premium paying term is the total period (number of years
+                or months) for which a policyholder has to pay premium, for a life
+                policy. This field is mandatory for typeOfQuote= 'Single Quote'
+              type: integer
+              maxLength: 150
+              example: 20
+            premiumPaymentFrequency:
+              description:
+                This is defined as the number of times during the policy
+                year that you need to pay premiums. Frequency options are typically
+                annual, semi-annual, quarterly and monthly. This field is mandatory
+                for typeOfQuote= 'Single Quote'
+              type: string
+              maxLength: 15
+              enum:
+                - M
+                - Q
+                - HY
+                - Y
+                - S
+            planOption:
+              description: Plan option selected and its details.
+              type: object
+              maxLength: 50
+              properties:
+                OptionSelected:
+                  description:
+                    ID of the Plan Option selected. This field is mandatory
+                    for typeOfQuote = 'Single Quote' if a plan exists for the product
+                    selected.
+                  type: string
+                varFields:
+                  type: array
+                  description: Other fields to be captured for plan option selected
+                  items:
+                    type: object
+                    properties:
+                      fieldName:
+                        type: string
+                        description: Additional fields for planOption section
+                        maxLength: 100
+                      fieldValue:
+                        description: Value of additional fields
+                        type: string
+                        maxLength: 100
+            coverOption:
+              description:
+                This section will tell what kind of Sum Assured is Opted
+                for and its attributes if any. Level Sum Assured means that the Sum
+                Assured remains the same throughout the policy term. Increasing or
+                Decreasing Sum Assured means that the Sum Assured will increase or
+                decrease through the years during the policy term
+              type: object
+              properties:
+                OptionSelected:
+                  type: string
+                  description:
+                    ID of Cover Option selected.  This field is mandatory
+                    for typeOfQuote= 'Single Quote'
+                  maxLength: 50
+                SAChangePercent:
+                  type: number
+                  description:
+                    In case an increasing or decreasing Sum Assured cover
+                    option is selected, this field will capture the percentage change
+                    (increase or decrease) on Sum Assured
+                varFields:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fieldName:
+                        type: string
+                        description: Additional fields for coverOption array
+                        maxLength: 50
+                      fieldValue:
+                        description: Value of additional fields
+                        type: string
+                        maxLength: 50
+            DBPoption:
+              description:
+                This section tells how the death benefit should be paid
+                out and additional details regarding it. Lumpsum means the entire
+                amount is paid in one go. Income means the death benefit amount will
+                be paid out as an income for a specific period. Combination of Lumpsum
+                and Income can also be chosen as per availability under the product.  This
+                field is mandatory for typeOfQuote= 'Single Quote'
+              type: object
+              properties:
+                OptionSelected:
+                  type: string
+                  description: Death Benefit Payout Option selected.
+                  maxLength: 30
+                lumpsumPayoutPercent:
+                  description:
+                    This field refers to the percentage of death benefit
+                    amount to be paid out as lumpsum. Rest of the amount will be usually
+                    paid as an income.
+                  type: number
+                  maxLength: 1000
+                  example: "60"
+                lumpsumAmount:
+                  description:
+                    The amount paid out as lumpsum will be captured in
+                    this field
+                  type: number
+                  maxLength: 15
+                  example: "6000000"
+                incomeAmount:
+                  description:
+                    This field will capture the amount of the income payout.
+                    A product can have a predefined value or product may give this
+                    as a choice to the customer
+                  type: number
+                  maxLength: 15
+                  example: "4000000"
+                incomeFrequency:
+                  description:
+                    This field will capture the frequency of the income
+                    payout. A product can have a predefined value or product may give
+                    this as a choice to the customer
+                  type: string
+                  maxLength: 30
+                  example: Y
+                incomeTerm:
+                  description:
+                    This field will capture the term of the income payout.
+                    A product can have a predefined value or product may give this
+                    as a choice to the customer
+                  type: integer
+                  example: 10
+                incomeTermUnit:
+                  description:
+                    This field will capture the unit of the income payout
+                    term. A product can have a predefined value or product may give
+                    this as a choice to the customer
+                  type: string
+                  maxLength: 15
+                  example: Years
+                incomeIncreasingPercent:
+                  description:
+                    If the death benefit payout is in the form of an increasing
+                    income, then the percentage of increase will be captured here
+                  type: integer
+                  maxLength: 100
+                  example: 5
+                varFields:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fieldName:
+                        type: string
+                        description: Additional fields for DBPOption section
+                        maxLength: 50
+                      fieldValue:
+                        type: string
+                        description: Value of additional fields
+                        maxLength: 50
+            AddOnSection:
+              type: object
+              properties:
+                returnOfPremium:
+                  type: object
+                  properties:
+                    returnOfPremiumPercentage:
+                      type: integer
+                      description:
+                        If the Return of Premium option is opted then,
+                        send the percentage of total premiums paid that the customer
+                        wants to receive as return of premium. If customer doesnt
+                        want to opt for Return of Premium then consumer should send
+                        value as 0. This field is mandatory for 'Single Quote'
+                      example: 100
+                    varFields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          fieldName:
+                            type: string
+                            description: Additional fields for returnOfPremium section
+                            maxLength: 100
+                          fieldValue:
+                            type: string
+                            description: Value of additional fields
+                            maxLength: 100
+                AddOns:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      OptionSelected:
+                        description: AddOn Option selected
+                        type: string
+                        maxLength: 20
+                      addOnSumAssured:
+                        description: Sum assured corresponding to selected Option
+                        type: number
+                        maxLength: 15
+                        example: "5000000"
+                      varFields:
+                        description:
+                          Other fields to be captured for AddOn benefits
+                          selected
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for AddOnBenefits section
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+            riderInformation:
+              description: Rider section to hold all rider related details
+              type: object
+              properties:
+                riderDetails:
+                  description: Rider array to capture details of multiple riders
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      riderCode:
+                        type: string
+                        description: riderCode to identify the rider selected
+                        maxLength: 20
+                        example: "22"
+                      riderTerm:
+                        type: integer
+                        description: Policy Term of the rider
+                        maxLength: 150
+                        example: 10
+                      riderPremiumPayingTerm:
+                        type: integer
+                        description: Premium Paying Term of the rider
+                        maxLength: 150
+                        example: 10
+                      riderSA:
+                        type: number
+                        description: Sum Assured pertaining to the rider
+                        maxLength: 20
+                        example: "1500000"
+                      varFields:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for rider array
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+            newOptions:
+              description:
+                Array created to capture any new type of option which may
+                be introduced in the future.
+              type: object
+              properties:
+                newOptionName:
+                  description: Field will identify which type of option this is
+                  type: string
+                  maxLength: 100
+                optionValues:
+                  description:
+                    This array will contain the details for various options
+                    available for each newOptionName
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      OptionSelected:
+                        description:
+                          For each type of option, this will contain the
+                          value of Option selected
+                        type: string
+                      varFields:
+                        description: Array to capture attributes of the option selected.
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for newOption array
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+            varFields:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldName:
+                    type: string
+                    description: Additional fields for product section
+                    maxLength: 100
+                  fieldValue:
+                    type: string
+                    description: Value of additional fields
+                    maxLength: 100
+        other:
+          type: object
+          properties:
+            keyFeatureDocLanguage:
+              description:
+                Key Feature Document is a document which captures the details
+                of the Insurance Product in simple language as required by the regulator
+                and is usually 'shared with the customer along with Business Illustration.
+                This field captures the language in which this document should be.
+              example: English
+              maxLength: 30
+            varFields:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldName:
+                    type: string
+                    description: Additional fields for other section
+                    maxLength: 100
+                  fieldValue:
+                    type: string
+                    description: Value of additional fields
+                    maxLength: 100
+    ConsumerResponse:
+      type: object
+      properties:
+        request:
+          description: Entire request object to be replicated here.
+          type: object
+        quote:
+          description:
+            The product array will contain all details related to a product
+            like premiums, income, sum assured, rider details etc.
+          type: array
+          items:
+            type: object
+            properties:
+              insuranceAndProducts:
+                description:
+                  "Section to hold details of insurance company and the
+                  product for which the following details are provided "
+                type: object
+                properties:
+                  insuranceCompanyCode:
+                    description:
+                      This code identifies the insurance company for which
+                      quote is given.
+                    type: string
+                    maxLength: 15
+                    example: EFGLife
+                  productType:
+                    description:
+                      This gives Line of Business of the product for which
+                      quote is generated.
+                    type: string
+                    maxLength: 30
+                    example: lifeTerm
+                  productCode:
+                    description:
+                      This field carries the productCode of the product
+                      for which quote is generated.
+                    type: string
+                    maxLength: 15
+                  productName:
+                    description: This gives the Name of the product selected
+                    type: string
+                    maxLength: 50
+                    example: My Term Product
+              productDetails:
+                description: Section to hold details regarding product parameters
+                type: object
+                properties:
+                  premiumPaymentTerm:
+                    description:
+                      Premium paying term is the total period (number of
+                      years or months) for which a policyholder has to pay premium,
+                      for a life policy.
+                    type: number
+                    maxLength: 100
+                    example: "20"
+                  policyTerm:
+                    description:
+                      Policy term is the period within which a policy remains
+                      active and offers protection/benefits
+                    type: number
+                    maxLength: 1500
+                    example: "20"
+                  policyTermUnit:
+                    description:
+                      This is a futuristic field to allow policy term to
+                      be in days or months.
+                    type: string
+                    maxLength: 15
+                    example: Years
+                  premiumPaymentFrequency:
+                    description:
+                      This is defined as the number of times during the
+                      policy year that you need to pay premiums. Frequency options
+                      are typically annual, semi-annual, quarterly and monthly.
+                    type: string
+                    maxLength: 15
+                    example: M
+                  premiumPaymentOption:
+                    description:
+                      "(1 stands for Single pay, 2 stands for Regular pay,
+                      3 stands for Limited pay). With single Pay option, you have
+                      the option to pay the premium for the entire policy term at
+                      once as a lump-sum amount. In Regular Pay option, the premium
+                      paying term is the same as the Policy Term chosen. With Limited
+                      Pay option, the premium is paid for a limited number of years
+                      which is less than the policy term. "
+                    type: string
+                    maxLength: 20
+                    example: "2"
+                    enum:
+                      - 1
+                      - 2
+                      - 3
+                  planOption:
+                    description: Plan option selected and its details
+                    type: object
+                    properties:
+                      OptionSelected:
+                        description: ID of the Plan Option selected
+                        type: string
+                        maxLength: 50
+                      varFields:
+                        description: Other fields to be captured for plan option selected
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for planOption section
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+                  CoverOption:
+                    description: Cover option selected and its details
+                    type: object
+                    properties:
+                      OptionSelected:
+                        description: ID of the Cover Option selected
+                        type: string
+                        maxLength: 50
+                      varFields:
+                        description:
+                          Other fields to be captured for cover option
+                          selected
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for coverOption section
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+                  DBPoption:
+                    description: Death Benefit Payout option selected and its details
+                    type: object
+                    properties:
+                      OptionSelected:
+                        description: ID of the Death Benefit Payout Option selected
+                        type: string
+                        maxLength: 50
+                      lumpsumPercent:
+                        description:
+                          This field refers to the percentage of death
+                          benefit amount to be paid out as lumpsum. Rest of the amount
+                          will be usually paid as an income.
+                        type: number
+                        maxLength: 80
+                        example: "60"
+                      lumpsumAmount:
+                        description:
+                          The amount paid out as lumpsum will be captured
+                          in this field
+                        type: number
+                        example: "6000000"
+                      incomePercent:
+                        description:
+                          This field refers to the percentage of death
+                          benefit amount to be paid out as income. Rest of the amount
+                          will be usually paid as a lumpsum.
+                        type: number
+                        example: "40"
+                      incomeAmount:
+                        description:
+                          This field will capture the amount of the income
+                          payout. A product can have a predefined value or product
+                          may give this as a choice to the customer
+                        type: number
+                        example: "4000000"
+                      incomeTerm:
+                        description:
+                          This field will capture the term of the income
+                          payout. A product can have a predefined value or product
+                          may give this as a choice to the customer
+                        type: integer
+                        example: 10
+                      incomeTermUnit:
+                        description:
+                          This field will capture the unit of the income
+                          payout term. A product can have a predefined value or product
+                          may give this as a choice to the customer
+                        type: string
+                        maxLength: 30
+                        example: Years
+                      incomeFrequency:
+                        description:
+                          This field will capture the frequency of the
+                          income payout. A product can have a predefined value or
+                          product may give this as a choice to the customer
+                        type: string
+                        maxLength: 15
+                        example: M
+                      varFields:
+                        description: Other fields to be captured for DBP option selected
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for DBPOption section
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+                  AddOnSection:
+                    description: Section to capture all add on related information
+                    type: object
+                    properties:
+                      returnOfPremium:
+                        description: Sub-section for return of premium details
+                        type: object
+                        properties:
+                          returnOfPremiumPercentage:
+                            description:
+                              " % of total premiums paid to be received
+                              as return of premium"
+                            type: number
+                            example: "100"
+                          maturityBenefit:
+                            description:
+                              "Total benefit amount to be revived as return
+                              of premium "
+                            type: number
+                            example: "400000"
+                          varFields:
+                            description:
+                              Other fields to be captured for ROP option
+                              selected
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fieldName:
+                                  type: string
+                                  description:
+                                    Additional fields for Return of Premium
+                                    section
+                                  maxLength: 100
+                                fieldValue:
+                                  type: string
+                                  description: Value of additional fields
+                                  maxLength: 100
+                      AddOns:
+                        description: This array will hold details of addons selected
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            optionSelected:
+                              type: string
+                              description: ID of the Addon selected
+                              maxLength: 50
+                            addOnSumAssured:
+                              type: number
+                              description: Sum assured corresponding to selected Option
+                            premiumIncludedFlag:
+                              type: string
+                              description:
+                                Value of 'Yes' in this flag indicates that
+                                the addOn premium is included in the individual death
+                                benefit premium and the below premium fields will
+                                not be populated and premiums fields will not be present.
+                                If 'No' then the addOn specific premium is provided
+                                in below premium fields.
+                              maxLength: 10
+                            premiumDetails:
+                              type: array
+                              description:
+                                premiumDetails array will capture premium
+                                for different modes. This array will hold values only
+                                premium split between addons is available
+                              items:
+                                type: object
+                                properties:
+                                  mode:
+                                    type: string
+                                    description: Mode is the premium payment frequency.
+                                    maxLength: 15
+                                  premiumValue:
+                                    type: number
+                                    description: The premium value excluding taxes.
+                                  tax:
+                                    type: array
+                                    description:
+                                      Tax array will help to capture multiple
+                                      taxes applicable for each premium
+                                    items:
+                                      type: object
+                                      properties:
+                                        taxCode:
+                                          type: string
+                                          description:
+                                            Tax code will help to identify
+                                            the type of tax.
+                                          maxLength: 30
+                                        taxDescription:
+                                          type: string
+                                          description: Description of the tax
+                                          maxLength: 50
+                                        taxValue:
+                                          type: number
+                                          description: Tax amount as per tax code
+                                        taxPercent:
+                                          type: number
+                                          description: Tax percentage
+                                  totalTax:
+                                    description:
+                                      This field gives the sum of all applicable
+                                      taxes.
+                                    type: number
+                                  totalPremiumValue:
+                                    description: The premium value including taxes.
+                                    type: number
+                            varFields:
+                              description:
+                                Other fields to be captured for AddOnSelected
+                                array
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  fieldName:
+                                    type: string
+                                    description:
+                                      Additional fields for AddOnSelected
+                                      array
+                                    maxLength: 100
+                                  fieldValue:
+                                    type: string
+                                    description: Value of additional fields
+                                    maxLength: 100
+                  newOptions:
+                    description:
+                      Array created to capture any new type of option which
+                      may be introduced in the future.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        newOptionName:
+                          description:
+                            Field will identify which type of option this
+                            is
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              OptionSelected:
+                                description:
+                                  For each type of option, this will contain
+                                  the value of Option selected
+                                type: string
+                                maxLength: 50
+                              varFields:
+                                description:
+                                  Array to capture attributes of the new
+                                  Option selected.
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    fieldName:
+                                      type: string
+                                      description:
+                                        Additional fields for newOption
+                                        array
+                                      maxLength: 100
+                                    fieldValue:
+                                      type: string
+                                      description: Value of additional fields
+                                      maxLength: 100
+              rider:
+                description:
+                  Rider array will capture all the details for various
+                  riders under product section
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ridercode:
+                      type: string
+                      description: Rider code will help to identify the rider.
+                      maxLength: 15
+                    riderTerm:
+                      type: integer
+                      description: Policy term for rider
+                    riderPremiumPayingTerm:
+                      type: integer
+                      description: Premium paying term of rider
+                    riderSA:
+                      type: number
+                      description: Sum assured for rider
+                    premiumDetails:
+                      type: array
+                      description:
+                        This array will contain rider premium and tax details
+                        for various modes of payment for the corresponding premium
+                        code.
+                      items:
+                        type: object
+                        properties:
+                          mode:
+                            type: string
+                            description: Mode is the premium payment frequency.
+                            maxLength: 15
+                          riderPremiumValue:
+                            type: number
+                            description: The rider premium value excluding taxes.
+                          tax:
+                            type: array
+                            description:
+                              Tax array will help to capture multiple taxes
+                              applicable for each rider premium
+                            items:
+                              type: object
+                              properties:
+                                taxCode:
+                                  type: string
+                                  description:
+                                    Tax code will help to identify the
+                                    type of tax.
+                                  maxLength: 30
+                                taxDescription:
+                                  type: string
+                                  description: Description of the tax
+                                  maxLength: 50
+                                taxValue:
+                                  type: number
+                                  description: Tax amount as per tax code
+                                taxPercent:
+                                  type: number
+                                  description: Tax percentage
+                          totalTax:
+                            description:
+                              This field gives the sum of all applicable
+                              taxes.
+                            type: number
+                          totalPremiumValue:
+                            description: The rider premium value including taxes.
+                            type: number
+                    varFields:
+                      description: Array to capture attributes of the rider
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          fieldName:
+                            type: string
+                            description: Additional fields for rider section
+                            maxLength: 100
+                          fieldValue:
+                            type: string
+                            description: Value of additional fields
+                            maxLength: 100
+              individualDetails:
+                description: This array will hold personal details of each life assured
+                type: array
+                items:
+                  type: object
+                  properties:
+                    memberSequenceNumber:
+                      type: string
+                      description:
+                        Unique sequence number of member as by provided
+                        in request.
+                      maxLength: 100
+                      example: "1"
+                    age:
+                      type: integer
+                      description: Age of the member
+                      maxLength: 100
+                      example: 25
+                    sumAssured:
+                      type: number
+                      description: The sum assured amount is captured here.
+                      maxLength: 100
+                      example: "10000000"
+                    premiumDetails:
+                      type: array
+                      description:
+                        This array will contain premium and tax details
+                        for various modes of payment for the corresponding premium
+                        code.
+                      items:
+                        type: object
+                        properties:
+                          mode:
+                            type: string
+                            description: Mode is the premium payment frequency.
+                            maxLength: 15
+                            example: Y
+                          premiumValue:
+                            type: number
+                            description: The premium value excluding taxes.
+                            example: "20000"
+                          tax:
+                            type: array
+                            description:
+                              Tax array will help to capture multiple taxes
+                              applicable for each premium
+                            items:
+                              type: object
+                              properties:
+                                taxCode:
+                                  type: string
+                                  description:
+                                    Tax code will help to identify the
+                                    type of tax.
+                                  maxLength: 30
+                                  example: lifeTerm_GST
+                                taxDescription:
+                                  type: string
+                                  description: Description of the tax
+                                  maxLength: 50
+                                  example: GST
+                                taxValue:
+                                  type: number
+                                  description: Tax amount as per tax code
+                                  example: "3600"
+                                taxPercent:
+                                  type: number
+                                  description: Tax percentage
+                                  example: "18"
+                          totalTax:
+                            description:
+                              This field gives the sum of all applicable
+                              taxes.
+                            type: number
+                            example: "3600"
+                          totalPremiumValue:
+                            description: The premium value including taxes.
+                            type: number
+                            example: "23600"
+                    rider:
+                      description:
+                        Rider array will capture all the details for various
+                        riders at individual level
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ridercode:
+                            type: string
+                            description: Rider code will help to identify the rider.
+                            maxLength: 15
+                          riderTerm:
+                            type: integer
+                            description: Policy term for rider
+                          riderPremiumPayingTerm:
+                            type: integer
+                            description: Premium paying term of rider
+                          riderSA:
+                            type: number
+                            description: Sum assured for rider
+                          premiumDetails:
+                            type: array
+                            description:
+                              This array will contain rider premium and
+                              tax details for various modes of payment for the corresponding
+                              premium code.
+                            items:
+                              type: object
+                              properties:
+                                mode:
+                                  type: string
+                                  description: Mode is the premium payment frequency.
+                                  maxLength: 15
+                                riderPremiumValue:
+                                  type: number
+                                  description: The rider premium value excluding taxes.
+                                tax:
+                                  type: array
+                                  description:
+                                    Tax array will help to capture multiple
+                                    taxes applicable for each rider premium
+                                  items:
+                                    type: object
+                                    properties:
+                                      taxCode:
+                                        type: string
+                                        description:
+                                          Tax code will help to identify
+                                          the type of tax.
+                                        maxLength: 30
+                                      taxDescription:
+                                        type: string
+                                        description: Description of the tax
+                                        maxLength: 50
+                                      taxValue:
+                                        type: number
+                                        description: Tax amount as per tax code
+                                      taxPercent:
+                                        type: number
+                                        description: Tax percentage
+                                totalRiderTax:
+                                  description:
+                                    This field gives the sum of all applicable
+                                    taxes.
+                                  type: number
+                                totalRiderPremiumValue:
+                                  description: The rider premium value including taxes.
+                                  type: number
+                          varFields:
+                            description: Array to capture attributes of the rider
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fieldName:
+                                  type: string
+                                  description: Additional fields for rider section
+                                  maxLength: 100
+                                fieldValue:
+                                  type: string
+                                  description: Value of additional fields
+                                  maxLength: 100
+                    varFields:
+                      description:
+                        Other fields to be captured for individualDetails
+                        array
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          fieldName:
+                            type: string
+                            description: Additional fields for individualDetails array
+                            maxLength: 100
+                          fieldValue:
+                            type: string
+                            description: Value of additional fields
+                            maxLength: 100
+              supportingData:
+                description:
+                  This section will capture the additional supporting data
+                  for the product that consumer app can use for managing product related
+                  information on consumer UI.
+                type: object
+                properties:
+                  validRanges:
+                    description:
+                      This section will contain the valid ranges of various
+                      parameters allowed for the product based on age.
+                    type: object
+                    properties:
+                      PremiumPayingTerm:
+                        description: Array for holding valid premium paying term values
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            value:
+                              description: Valid Premium Paying Term values
+                              type: string
+                      SumAssured:
+                        description: Section for holding valid Sum Assured values
+                        type: object
+                        properties:
+                          min:
+                            description: Valid minimum Sum assured value
+                            type: string
+                            maxLength: 15
+                          max:
+                            description: Valid maximum Sum assured value
+                            type: string
+                            maxLength: 15
+                          multipleOf:
+                            description:
+                              Sum assured can only be a multiple of this
+                              value
+                            type: string
+                            maxLength: 15
+                      PolicyTerm:
+                        description: Section for holding valid Policy Term values
+                        type: object
+                        properties:
+                          min:
+                            description: Valid minimum Policy Term value
+                            type: string
+                            maxLength: 150
+                          max:
+                            description: Valid maximum Policy Term value
+                            type: string
+                            maxLength: 150
+                      varFields:
+                        description: Variable array to hold any other parameters.
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description:
+                                Name of the variable field. This array
+                                will hold multiple values.
+                              maxLength: 50
+                            fieldType:
+                              type: string
+                              description:
+                                This will specify if the parameter will
+                                have a single value or multiple values (array).
+                              maxLength: 50
+                            fieldValue:
+                              description: Array for capturing values
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  value:
+                                    description: Value of additional parameter
+                                    type: string
+                                    maxLength: 150
+                  invalidFeatureCombinations:
+                    description:
+                      This array will capture all the combinations of options
+                      that are not allowed together.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        Combo:
+                          description: Array of values
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              fieldLevel:
+                                description:
+                                  This will indicate if the field belongs
+                                  to individual or product sections. Valid values
+                                  are 'individualDetails', 'productDetails'.
+                                type: string
+                                maxLength: 100
+                              memberSequenceNumber:
+                                description:
+                                  Sequence number of member. This will
+                                  carry value when fieldLevel is 'individualDetails'
+                                type: string
+                                maxLength: 100
+                              fieldType:
+                                description:
+                                  This will indicate if the field is an
+                                  'option' or a 'rider'
+                                type: string
+                                maxLength: 100
+                              fieldValue:
+                                description:
+                                  If fieldType is 'option' then this field
+                                  will carry optionID, if fieldType is 'rider' then
+                                  this field will carry value of rider product code.
+                                type: string
+                                maxLength: 150
+                  outOfRangeDetails:
+                    description:
+                      If the customer provides an input which is out of
+                      bound of product boundary conditions, 1SB will still provide
+                      a quote by changing the parameter. This array will indicate
+                      which parameter was out of bound and changed by 1SB to generate
+                      a valid quote.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fieldLevel:
+                          description:
+                            This will indicate if the field belongs to
+                            individual or product sections. Valid values are 'individualDetail',
+                            'productDetails'
+                          type: string
+                          maxLength: 100
+                        memberSequenceNumber:
+                          description:
+                            Sequence number of member. This will carry
+                            value when fieldLevel is 'individualDetails'
+                          type: string
+                          maxLength: 100
+                        fieldType:
+                          description:
+                            This will indicate if the field is an 'option'
+                            or a 'rider'
+                          type: string
+                          maxLength: 100
+                        fieldCode:
+                          description:
+                            If fieldType is 'option' then this field will
+                            carry optionID, if fieldType is 'rider' then this field
+                            will carry value of rider product code.
+                          type: string
+                          maxLength: 100
+                        OutOfRangeFieldName:
+                          description:
+                            "The name of the json field  (parameter) which
+                            was out of range will be captured here. Example: product
+                            allows policy term only till 75 but customer has selected
+                            policy Term as 80. 1SB will default the policy term to
+                            75 and send a quote. The name of the changed out of range
+                            parameter, 'policyTerm' in this case will be present
+                            in this field"
+                          type: string
+                          maxLength: 100
+                  Messages:
+                    description:
+                      All product related messages will be captured in
+                      this section
+                    type: object
+                    properties:
+                      TypeofMedical:
+                        description:
+                          Type of medical which is applicable as per the
+                          customers age
+                        type: string
+                        maxLength: 100
+                      ClaimSettlementPercent:
+                        description: Claim settlement ratio of the insurance company
+                        type: string
+                        maxLength: 100
+                      ClaimSettlementTAT:
+                        description: Claim settlement TAT of the insurance company
+                        type: string
+                        maxLength: 100
+                      productFeatures:
+                        description:
+                          All product features will be shared via this
+                          field
+                        type: string
+                        maxLength: 5000
+                      brochureLink:
+                        description:
+                          The URL for the product brochure link will be
+                          shared in this field.
+                        type: string
+                        maxLength: 200
+                      isWholeLifePlan:
+                        description:
+                          This field indicates if the product supports
+                          whole life plan option or not.
+                        type: string
+                        maxLength: 10
+                        example: "Yes"
+                      riderMedical:
+                        description:
+                          Does any of the selected riders need medical
+                          tests? If yes then this field will carry value as Yes.
+                        type: string
+                        maxLength: 10
+                        example: "Yes"
+                      Home_Medicals:
+                        description:
+                          This field indicates if the manufacturer supports
+                          home collection of samples for medical tests.
+                        type: string
+                        maxLength: 10
+                        example: "Yes"
+                      medicalExpensesDeductible:
+                        description:
+                          This field indicates if the manufacturer supports
+                          deduction or adjustment of expenses of the medical tests
+                          if the tests are paid for by the customer.
+                        type: string
+                        maxLength: 10
+                        example: "Yes"
+                      PolicyIssuanceTime:
+                        description:
+                          Average time required by the manufacturer to
+                          issue a policy (in number of days)
+                        type: string
+                        maxLength: 5
+                        example: "15"
+                      MarketingMessages:
+                        description:
+                          This array will contain all other product and
+                          manufacturer related marketing messages or information.
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Message:
+                              description:
+                                If fieldType is 'option' then this field
+                                will carry optionID, if fieldType is 'rider' then
+                                this field will carry value of rider product code.
+                              type: string
+                              maxLength: 500
+                      varFields:
+                        description:
+                          Array to capture additional fields of the Messages
+                          section
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fieldName:
+                              type: string
+                              description: Additional fields for variable section
+                              maxLength: 100
+                            fieldValue:
+                              type: string
+                              description: Value of additional fields
+                              maxLength: 100
+              other:
+                description:
+                  All other details not related to product or personal
+                  information will be captured here.
+                type: object
+                properties:
+                  biUrl:
+                    description: URL for the Benefit illustration
+                    type: string
+                    maxLength: 100
+                  biNo:
+                    description: Benefit illustration Number
+                    type: string
+                    maxLength: 500
+                  keyFeatureDocumentLanguage:
+                    description: Key Feature document language is stored here
+                    type: string
+                    maxLength: 30
+                  varFields:
+                    description: Array to capture additional fields of the other section
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fieldName:
+                          type: string
+                          description: Additional fields for variable section
+                          maxLength: 100
+                        fieldValue:
+                          type: string
+                          description: Value of additional fields
+                          maxLength: 100
+              varFields:
+                description: Array to capture additional fields of the quote array
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fieldName:
+                      type: string
+                      description: Additional fields for variable section
+                      maxLength: 100
+                    fieldValue:
+                      type: string
+                      description: Value of additional fields
+                      maxLength: 100
+        status:
+          description: "This section capture status and error messages "
+          type: object
+          properties:
+            status:
+              type: string
+              description: "This field tells if Quote request is a 'success' or
+                'failure' "
+              maxLength: 10
+            errorDetails:
+              description: This array will capture error code and error message
+              type: array
+              items:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    description:
+                      In case error occurs, the error code will be stored
+                      here
+                    maxLength: 50
+                  error:
+                    type: string
+                    description:
+                      In case error occurs, the error message will be stored
+                      here
+                    maxLength: 100
+            TransactionId:
+              description:
+                This field will carry the transactionID associated with
+                the quote request
+              type: string
+              maxLength: 100
+            manufacturerRequestId:
+              description:
+                Request Id generated by manufacturer for each quote. This
+                will be shared with consumer only in case of Single Quote
+            varFields:
+              description: Array to capture additional fields of the status section
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldName:
+                    type: string
+                    description: Additional fields for variable section
+                    maxLength: 100
+                  fieldValue:
+                    type: string
+                    description: Value of additional fields
+                    maxLength: 100
+    Error:
+      type: object
+x-consumer-request-api:
+  all:
+    validateRequestBody: true
+    validateRequestParameters: true
+  params-only:
+    validateRequestBody: false
+    validateRequestParameters: true
+x-consumer-request-api-: params-only

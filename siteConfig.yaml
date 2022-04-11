@@ -16,8 +16,7 @@ toc:
 oasDefinitions:
   petstore: ./openapi/submitproposal.yaml
   consumer-GetProposal: ./openapi/consumer-GetProposal.yaml
-  getRequirementAPI: ./openapi/getRequirementAPI.yaml
-  getproposal: ./openapi/getproposal.yaml
+  admin: ./openapi/consumer-GETQuotation.yaml
   # add links to definitions in our API registry by using a fully qualified URL.
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
