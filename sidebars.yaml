@@ -38,18 +38,21 @@ training:
   #       page: developer-portal/mdx.mdx
   #     - label: Creating React components
   #       page: developer-portal/custom-component.mdx
-  - group: Submit Proposal
+  - group: Consumer Submit Proposal
     expanded: true
     pages:
       - page: openapi/submitproposal.page.yaml/*
+      - page: developer-portal/productdetail.md
+        label: Product Details
+
   - group: Consumer GET Proposal
-    expanded: false
+    expanded: true
     pages:
       - page: openapi/consumer.page.yaml/*
   - group: Consumer Get Quotation
     expanded: true
     pages:
-      - page: openapi/quotation.page.yaml/*
+      - page: openapi/quotation.page.yaml/* 
   # - group: Admin
   #   expanded: true
   #   pages:
