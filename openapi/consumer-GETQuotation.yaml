@@ -8,7 +8,7 @@ info:
     The 1Silverbullet Insurance quotation API will enable the consumers to connect with multiple manufacturers (insurance companies) for generation of quotes for Life Term products. The API has the flexibility to provide quotes for multiple products with one request from the consumer. The quotation response also provides other value added information like product features and insurance company's marketing messages, which can help consumers to enrich their user experience.
 
 servers:
-   - url: 'https://demo.insurance.api.1silverbullet.tech'
+   - url: 'https://demo.insurance.api.1silverbullet.tech/insurance'
 tags:
   - name: API Authentication
     description: Quotation API is authenticated using Basic Auth. Basic auth requires the following
@@ -21,8 +21,10 @@ tags:
   
 
 paths:
-  "/lifeTerm/quotation/":
+  "/lifeTerm/quote/":
     post:
+      security:
+        - basicAuth: []
       summary: Quote Request
       requestBody:
         description: Consumer Request
@@ -236,6 +238,10 @@ paths:
             request.AddParameter("application/json", "{\"typeOfQuote\":\"Single Quote\",\"quoteCategory\":\"Sum Assured\",\"alternateFreqRequired\":\"Yes\",\"outOfBoundConfig\":\"Yes\",\"additionalSetup\":{\"currency\":\"AUD\",\"userCountry\":\"AF\",\"userRegion\":\"string\",\"userLanguage\":\"string\",\"userIP\":\"string\",\"userAgent\":\"string\",\"userGeoLocation\":\"string\"},\"distributor\":{\"distributorID\":\"D001\",\"agentId\":7055555077,\"salesChannel\":\"Online\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"personalInformation\":{\"individualDetails\":[{\"memberType\":\"Life Assured\",\"memberSequenceNumber\":1,\"title\":\"Mr\",\"firstName\":\"Jane\",\"middleName\":\"S\",\"lastName\":\"Doe\",\"gender\":\"Male\",\"dateOfBirth\":\"1996-08-13\",\"age\":25,\"maritalStatus\":\"Married\",\"qualification\":\"Post Graduate\",\"occupation\":\"Salaried\",\"annualIncome\":\"2000000\",\"email\":\"abcxyz@gmail.com\",\"mobileNumber\":\"9898989898\",\"tobacco\":\"No\",\"relationWithFirstLifeAssured\":\"Spouse\",\"zipCode\":400002,\"state\":\"ANDAMAN AND NICOBAR\",\"city\":\"Mumbai\",\"quoteAmount\":\"10000000\",\"riderDetails\":[{\"riderCode\":\"23\",\"riderTerm\":20,\"riderPremiumPayingTerm\":20,\"riderSA\":\"1000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}],\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"product\":{\"productType\":\"LifeTerm\",\"insuranceAndProducts\":[{\"insuranceCompanyCode\":\"EFGLife\",\"productCode\":[\"string\"]}],\"policyTerm\":20,\"policyTermUnit\":\"Years\",\"premiumPaymentOption\":\"2\",\"premiumPaymentTerm\":20,\"premiumPaymentFrequency\":\"M\",\"planOption\":{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"coverOption\":{\"OptionSelected\":\"string\",\"SAChangePercent\":0,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"DBPoption\":{\"OptionSelected\":\"string\",\"lumpsumPayoutPercent\":\"60\",\"lumpsumAmount\":\"6000000\",\"incomeAmount\":\"4000000\",\"incomeFrequency\":\"Y\",\"incomeTerm\":10,\"incomeTermUnit\":\"Years\",\"incomeIncreasingPercent\":5,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOnSection\":{\"returnOfPremium\":{\"returnOfPremiumPercentage\":100,\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"AddOns\":[{\"OptionSelected\":\"string\",\"addOnSumAssured\":\"5000000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"riderInformation\":{\"riderDetails\":[{\"riderCode\":\"22\",\"riderTerm\":10,\"riderPremiumPayingTerm\":10,\"riderSA\":\"1500000\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"newOptions\":{\"newOptionName\":\"string\",\"optionValues\":[{\"OptionSelected\":\"string\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}]},\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]},\"other\":{\"keyFeatureDocLanguage\":\"English\",\"varFields\":[{\"fieldName\":\"string\",\"fieldValue\":\"string\"}]}}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   schemas:
     ConsumerRequest:
       required:
@@ -258,7 +264,7 @@ components:
             or a Premium, or an Income.
           type: string
           maxLength: 20
-          example: Sum Assured
+          example: "Sum Assured"
           enum:
             - Premium
             - Sum Assured
@@ -644,7 +650,7 @@ components:
             distributorID:
               type: string
               maxLength: 20
-              example: D001
+              example: "D001"
               description: Distributor ID assign to each consumer by 1SB
             agentId:
               type: string
@@ -652,7 +658,7 @@ components:
                 agent code. Eg. PoSP code or SP code provided by insurance
                 company.
               maxLength: 30
-              example: 7055555077
+              example: "7055555077"
             salesChannel:
               description:
                 "This is used by insurance companies to identify sales
@@ -701,7 +707,7 @@ components:
                       Indicates if the information is being captured for
                       life assured or proposer.
                     maxLength: 30
-                    example: Life Assured
+                    example: "Life Assured"
                   memberSequenceNumber:
                     description:
                       Sequence number of members. This should be as unique
@@ -720,17 +726,17 @@ components:
                     description: First Name of Member
                     type: string
                     maxLength: 50
-                    example: Jane
+                    example: "Jane"
                   middleName:
                     description: Middle Name of Member
                     type: string
                     maxLength: 50
-                    example: S
+                    example: "Sam"
                   lastName:
                     description: Last Name of Member
                     type: string
                     maxLength: 50
-                    example: Doe
+                    example: "Doe"
                   gender:
                     description: Gender of Member.
                     type: string
@@ -781,17 +787,17 @@ components:
                     description: Annual Income of Member. Existing earnings per year.
                     type: number
                     maxLength: 15
-                    example: "2000000"
+                    example: 2000000
                   email:
                     description: Email ID of Member
                     type: string
                     maxLength: 100
-                    example: abcxyz@gmail.com
+                    example: "abcxyz@gmail.com"
                   mobileNumber:
                     description: Mobile number of Member
                     type: number
                     maxLength: 10
-                    example: "9898989898"
+                    example: 9898989898
                   tobacco:
                     description: Smoker/Non-Smoker status of Member
                     type: string
@@ -806,12 +812,12 @@ components:
                       typeOfQuote= 'Single Quote'"
                     type: string
                     maxLength: 30
-                    example: Spouse
+                    example: "Spouse"
                   zipCode:
                     description: This is Pin code
                     type: string
                     maxLength: 10
-                    example: 400002
+                    example: "400002"
                   state:
                     description: State of Member
                     type: string
@@ -858,7 +864,7 @@ components:
                     description: City of Member
                     type: string
                     maxLength: 50
-                    example: Mumbai
+                    example: "Mumbai"
                   quoteAmount:
                     description:
                       Amount based on Quote Category. Can be the amount
@@ -868,7 +874,7 @@ components:
                       = 'Single quote' and 'memberType = '1' (Life assured)
                     type: number
                     maxLength: 15
-                    example: "10000000"
+                    example: 10000000
                   riderDetails:
                     description:
                       Rider array to capture details of multiple riders
@@ -896,7 +902,7 @@ components:
                           description: Sum Assured pertaining to the rider
                           type: number
                           maxLength: 20
-                          example: "1000000"
+                          example: 1000000
                         varFields:
                           type: array
                           items:
@@ -935,7 +941,7 @@ components:
                 relevant products while creating request for Manufacturer
               type: string
               maxLength: 30
-              example: LifeTerm
+              example: "LifeTerm"
             insuranceAndProducts:
               description:
                 "Array to capture multiple insurance company codes and
@@ -951,7 +957,7 @@ components:
                       This is to provide quotes from selected companies.
                       This field is mandatory for typeOfQuote= 'Single Quote'
                     maxLength: 15
-                    example: EFGLife
+                    example: "EFGLife"
                   productCode:
                     type: array
                     description:
@@ -973,7 +979,7 @@ components:
                 days or months.
               type: string
               maxLength: 15
-              example: Years
+              example: "Years"
             premiumPaymentOption:
               description:
                 "(Send 1 for Single pay, 2 for Regular pay, 3 for Limited
@@ -987,9 +993,9 @@ components:
               maxLength: 20
               example: "2"
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             premiumPaymentTerm:
               description:
                 Premium paying term is the total period (number of years
@@ -1092,14 +1098,14 @@ components:
                     paid as an income.
                   type: number
                   maxLength: 1000
-                  example: "60"
+                  example: 60
                 lumpsumAmount:
                   description:
                     The amount paid out as lumpsum will be captured in
                     this field
                   type: number
                   maxLength: 15
-                  example: "6000000"
+                  example: 6000000
                 incomeAmount:
                   description:
                     This field will capture the amount of the income payout.
@@ -1107,7 +1113,7 @@ components:
                     as a choice to the customer
                   type: number
                   maxLength: 15
-                  example: "4000000"
+                  example: 4000000
                 incomeFrequency:
                   description:
                     This field will capture the frequency of the income
@@ -1115,7 +1121,7 @@ components:
                     this as a choice to the customer
                   type: string
                   maxLength: 30
-                  example: Y
+                  example: "Y"
                 incomeTerm:
                   description:
                     This field will capture the term of the income payout.
@@ -1130,7 +1136,7 @@ components:
                     this as a choice to the customer
                   type: string
                   maxLength: 15
-                  example: Years
+                  example: "Years"
                 incomeIncreasingPercent:
                   description:
                     If the death benefit payout is in the form of an increasing
@@ -1192,7 +1198,7 @@ components:
                         description: Sum assured corresponding to selected Option
                         type: number
                         maxLength: 15
-                        example: "5000000"
+                        example: 5000000
                       varFields:
                         description:
                           Other fields to be captured for AddOn benefits
@@ -1238,7 +1244,7 @@ components:
                         type: number
                         description: Sum Assured pertaining to the rider
                         maxLength: 20
-                        example: "1500000"
+                        example: 1500000
                       varFields:
                         type: array
                         items:
@@ -1352,14 +1358,14 @@ components:
                       quote is given.
                     type: string
                     maxLength: 15
-                    example: EFGLife
+                    example: "EFGLife"
                   productType:
                     description:
                       This gives Line of Business of the product for which
                       quote is generated.
                     type: string
                     maxLength: 30
-                    example: lifeTerm
+                    example: "lifeTerm"
                   productCode:
                     description:
                       This field carries the productCode of the product
@@ -1370,7 +1376,7 @@ components:
                     description: This gives the Name of the product selected
                     type: string
                     maxLength: 50
-                    example: My Term Product
+                    example: "My Term Product"
               productDetails:
                 description: Section to hold details regarding product parameters
                 type: object
@@ -1382,21 +1388,21 @@ components:
                       for a life policy.
                     type: number
                     maxLength: 100
-                    example: "20"
+                    example: 20
                   policyTerm:
                     description:
                       Policy term is the period within which a policy remains
                       active and offers protection/benefits
                     type: number
                     maxLength: 1500
-                    example: "20"
+                    example: 20
                   policyTermUnit:
                     description:
                       This is a futuristic field to allow policy term to
                       be in days or months.
                     type: string
                     maxLength: 15
-                    example: Years
+                    example: "Years"
                   premiumPaymentFrequency:
                     description:
                       This is defined as the number of times during the
@@ -1404,7 +1410,7 @@ components:
                       are typically annual, semi-annual, quarterly and monthly.
                     type: string
                     maxLength: 15
-                    example: M
+                    example: "M"
                   premiumPaymentOption:
                     description:
                       "(1 stands for Single pay, 2 stands for Regular pay,
@@ -1482,27 +1488,27 @@ components:
                           will be usually paid as an income.
                         type: number
                         maxLength: 80
-                        example: "60"
+                        example: 60
                       lumpsumAmount:
                         description:
                           The amount paid out as lumpsum will be captured
                           in this field
                         type: number
-                        example: "6000000"
+                        example: 6000000
                       incomePercent:
                         description:
                           This field refers to the percentage of death
                           benefit amount to be paid out as income. Rest of the amount
                           will be usually paid as a lumpsum.
                         type: number
-                        example: "40"
+                        example: 40
                       incomeAmount:
                         description:
                           This field will capture the amount of the income
                           payout. A product can have a predefined value or product
                           may give this as a choice to the customer
                         type: number
-                        example: "4000000"
+                        example: 4000000
                       incomeTerm:
                         description:
                           This field will capture the term of the income
@@ -1517,7 +1523,7 @@ components:
                           may give this as a choice to the customer
                         type: string
                         maxLength: 30
-                        example: Years
+                        example: "Years"
                       incomeFrequency:
                         description:
                           This field will capture the frequency of the
@@ -1525,7 +1531,7 @@ components:
                           product may give this as a choice to the customer
                         type: string
                         maxLength: 15
-                        example: M
+                        example: "M"
                       varFields:
                         description: Other fields to be captured for DBP option selected
                         type: array
@@ -1553,13 +1559,13 @@ components:
                               " % of total premiums paid to be received
                               as return of premium"
                             type: number
-                            example: "100"
+                            example: 100
                           maturityBenefit:
                             description:
                               "Total benefit amount to be revived as return
                               of premium "
                             type: number
-                            example: "400000"
+                            example: 400000
                           varFields:
                             description:
                               Other fields to be captured for ROP option
@@ -1812,7 +1818,7 @@ components:
                       type: number
                       description: The sum assured amount is captured here.
                       maxLength: 100
-                      example: "10000000"
+                      example: 10000000
                     premiumDetails:
                       type: array
                       description:
@@ -1826,11 +1832,11 @@ components:
                             type: string
                             description: Mode is the premium payment frequency.
                             maxLength: 15
-                            example: Y
+                            example: "Y"
                           premiumValue:
                             type: number
                             description: The premium value excluding taxes.
-                            example: "20000"
+                            example: 20000
                           tax:
                             type: array
                             description:
@@ -1845,30 +1851,30 @@ components:
                                     Tax code will help to identify the
                                     type of tax.
                                   maxLength: 30
-                                  example: lifeTerm_GST
+                                  example: "lifeTerm_GST"
                                 taxDescription:
                                   type: string
                                   description: Description of the tax
                                   maxLength: 50
-                                  example: GST
+                                  example: "GST"
                                 taxValue:
                                   type: number
                                   description: Tax amount as per tax code
-                                  example: "3600"
+                                  example: 3600
                                 taxPercent:
                                   type: number
                                   description: Tax percentage
-                                  example: "18"
+                                  example: 18
                           totalTax:
                             description:
                               This field gives the sum of all applicable
                               taxes.
                             type: number
-                            example: "3600"
+                            example: 3600
                           totalPremiumValue:
                             description: The premium value including taxes.
                             type: number
-                            example: "23600"
+                            example: 23600
                     rider:
                       description:
                         Rider array will capture all the details for various
@@ -2342,3 +2348,5 @@ x-consumer-request-api:
     validateRequestBody: false
     validateRequestParameters: true
 x-consumer-request-api-: params-only
+security:
+  - basicAuth: []  # <-- use the same name her
