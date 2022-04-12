@@ -17,11 +17,11 @@ tags:
   - name: Download Postman API Collection 
     description: Copy below URL and import it in Postman Collection.
       - https://www.getpostman.com/collections/fc3b7a0a4cf5f2630067
-
+  
   
 
 paths:
-  "/lifeTerm/quote/":
+  "/LifeTerm/quote/":
     post:
       security:
         - basicAuth: []
