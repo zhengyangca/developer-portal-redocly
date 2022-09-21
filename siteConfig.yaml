@@ -1,15 +1,15 @@
 meta:
-  title: 1SB Developer Portal
-  description: 1SB Developer Portal
+  title: ATB TEST Developer Portal
+  description: ATB TEST Developer Portal
   siteUrl: https://developer-portal-starter.redoc.ly
-  keywords: redocly developer portal, api portal starter, api reference docs , 1sb developer portal
+  keywords: redocly developer portal, api portal starter, api reference docs , ATB TEST developer portal
   lang: en-US
 linkChecker:
   severity: warning
   options:
     CheckExternal: false
 logo:
-  image: ./images/1sb_white.png
+  image: ./images/atb-icon.png
   altText: 1Silverbullet
 toc:
   enable: true
