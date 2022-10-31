@@ -1,5 +1,5 @@
 meta:
-  title: ATB TEST Developer Portal
+  title: atb TEST Developer Portal111
   description: ATB TEST Developer Portal
   siteUrl: https://developer-portal-starter.redoc.ly
   keywords: redocly developer portal, api portal starter, api reference docs , ATB TEST developer portal
@@ -14,8 +14,8 @@ logo:
 toc:
   enable: true
 oasDefinitions:
-  submitproposal: ./openapi/consumer-SubmitProposal.yaml
-  consumer-GetProposal: ./openapi/consumer-GetProposal.yaml
+  submitproposal: ./openapi/petstore.yaml
+  consumer-GetProposal: https://api.redocly.com/registry/bundle/atb-financial/Payments/v1/openapi.yaml?branch=main
   quotation: ./openapi/consumer-GETQuotation.yaml
   # add links to definitions in our API registry by using a fully qualified URL.
 stylesheets:
