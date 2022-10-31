@@ -38,17 +38,19 @@ training:
   #       page: developer-portal/mdx.mdx
   #     - label: Creating React components
   #       page: developer-portal/custom-component.mdx
-  - group: Consumer Submit Proposal
+
+  - group: ATB Testing API
+    expanded: true
+    pages:
+      - page: openapi/consumer.page.yaml/*
+
+  - group: Pet Store
     expanded: true
     pages:
       - page: openapi/submitproposal.page.yaml/*
       - page: developer-portal/productdetail.md
         label: Product Details
-
-  - group: Consumer GET Proposal
-    expanded: true
-    pages:
-      - page: openapi/consumer.page.yaml/*
+        
   - group: Consumer Get Quotation
     expanded: true
     pages:
